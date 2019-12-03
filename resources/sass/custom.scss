@@ -1,0 +1,30 @@
+.flatpickr-input[readonly] {
+    background-color: white;
+}
+
+.tab-empty {
+    border-bottom: 1px solid #dee2e6;
+
+}
+
+.cc-inline {
+    display: inline-block;
+    height: 24px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    background-color: #f8fafc !important;
+    font-size: 0.7875rem;
+}
+
+.btn-group-xs>.btn,
+.btn-xs {
+    padding: .25rem .3rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+
+    i {
+        font-size: 18px;
+    }
+}
