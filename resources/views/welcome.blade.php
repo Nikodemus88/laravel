@@ -5,12 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DEZE MOET JE HEBBON</title>
+    <title>Project Events</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -19,6 +26,7 @@
     <style>
         html,
         body {
+            .
             /* background-color: #000;
             color: #636b6f;
             font-family: 'Nunito', sans-serif;
@@ -27,35 +35,35 @@
             margin: 0; */
         }
 
+        .nav-bar {
+            /* position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            border-bottom: 1px solid #eee; */
+        }
+
         .full-height {
             height: 100vh;
         }
 
-        /* .flex-center {
+        .flex-center {
             align-items: center;
             display: flex;
             justify-content: center;
-        } */
+        }
 
         /* .position-ref {
             position: relative;
         } */
 
         .top-right {
-            position: absolute;
+            /* position: absolute;
             right: 10px;
-            top: 18px;
+            top: 18px; */
         }
 
-        /* .content {
-            text-align: center;
-        } */
-
-        /* .title {
-            font-size: 84px;
-        } */
-
-        /* .links>a {
+        .links>a {
             color: #636b6f;
             padding: 0 25px;
             font-size: 13px;
@@ -63,7 +71,7 @@
             letter-spacing: .1rem;
             text-decoration: none;
             text-transform: uppercase;
-        } */
+        }
 
         /* .m-b-md {
             margin-bottom: 30px;
@@ -72,36 +80,40 @@
 </head>
 
 <body>
-    <div id="app" class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
+    <div id="app" class="">
+        <div class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container text-right">
+                <span class="links text-right">
+                    @if (Route::has('login'))
+                    @auth
+                    <a href="{{ url('/home') }}">Home</a>
+                    @else
+                    <a href="{{ route('login') }}">Login</a>
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-
-        </div>
-        @endif
-
-        <div class="content">
-            <div class="title m-b-md">
-                <calendar-component :selectable="false"></calendar-component>
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                    @endif
+                    @endauth
+                    @endif
+                </span>
             </div>
+        </div>
 
-            <div class="links">
-                <a href="#">Docs</a>
-                <a href="#">Laracasts</a>
-                <a href="#">News</a>
-                <a href="#">Blog</a>
-                <a href="#">Nova</a>
-                <a href="#">Forge</a>
-                <a href="#">Vapor</a>
-                <a href="#">GitHub</a>
+        <div class="content container mt-4">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <project-list editable=false></project-list>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="title m-b-md">
+                                <calendar-component :selectable="false"></calendar-component>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

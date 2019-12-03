@@ -12,7 +12,7 @@
           class="col bg-img cover"
           v-bind:style="{ backgroundImage: 'linear-gradient(to right, rgba(28, 77, 117, 0.8), rgba(28, 77, 117, 0)), url(' + project.img_url + ')' }"
         >
-          <div class="row pt-3">
+          <div class="row pt-3" v-if="isEditable">
             <div class="col"></div>
             <div class="col-auto p-0" v-if="project.url">
               <a :href="project.url" target="_BLANK">
@@ -31,6 +31,7 @@
               </button>
             </div>
           </div>
+          <div v-else class="row pt-4"></div>
           <div class="px-4 pt-2 pb-4 text-white">
             <h2>
               <b>{{ project.title }}</b>
@@ -103,12 +104,12 @@
                       placement="top"
                       variant="secondary"
                     >{{ event.description }}</b-tooltip>
-                      
+
                     <b-badge v-if="event.price > 0" pill variant="light">€ {{ event.price }}</b-badge>
                     <b-badge v-else pill variant="success">free</b-badge>
 
                     <br />
-                    <span v-if="event.next">{{ moment(event.next.date).format('LL') }}</span> - 
+                    <span v-if="event.next">{{ moment(event.next.date).format('LL') }}</span> -
                     <span
                       v-if="event.next && !event.allday"
                     >{{ moment(event.next.date).format('LT') }} / {{ moment(event.next.date).add(event.duration, 'minutes').format('LT') }}</span>
@@ -129,7 +130,7 @@
           v-bind:style="{ backgroundImage: 'url(' + project.img_url + ')' }"
           v-if="project.img_url"
         >
-          <div class="row pt-3">
+          <div class="row pt-3" v-if="isEditable">
             <div class="col"></div>
             <div class="col-auto p-0" v-if="project.url">
               <a :href="project.url" target="_BLANK">
@@ -177,6 +178,9 @@ import moment from "moment";
 Vue.prototype.moment = moment;
 
 export default {
+  props: {
+    editable: Boolean
+  },
   data() {
     return {
       projects: [],
@@ -189,6 +193,9 @@ export default {
   computed: {
     hasProjects() {
       return this.projects.length > 0 ? true : false;
+    },
+    isEditable() {
+      return editable == false ? false : true;
     }
   },
   methods: {
