@@ -53,19 +53,6 @@ export default {
         startDate() {
             return moment(this.event.start).format("LL");
         }
-        // startEndTime() {
-        //     if (this.event.allDay == 1) {
-        //         return "All day event";
-        //     } else {
-        //         return (
-        //             moment(this.event.next.date).format("LT") +
-        //             " / " +
-        //             moment(this.event.next.date)
-        //                 .add(this.event.duration, "minutes")
-        //                 .format("LT")
-        //         );
-        //     }
-        // }
     }
 };
 </script>
