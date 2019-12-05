@@ -15,7 +15,7 @@ class AddProjectToEventsTable extends Migration
     {
         Schema::table('events', function($table) {
             $table->unsignedBigInteger('project_id')->nullable();
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

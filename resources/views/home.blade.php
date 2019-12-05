@@ -29,19 +29,10 @@
 
         <div class="col-md-7">
 
-            <project-list></project-list>
+            <project-list editable></project-list>
 
         </div>
         <div class="col-md-5">
-
-
-            <div class="card mb-4">
-                <div class="card-body text-center">
-                    <calendar-component></calendar-component>
-                </div>
-            </div>
-
-
 
             <div class="card mb-4">
 
@@ -49,13 +40,23 @@
 
                     <h4>Events</h4>
 
-                    <event-list></event-list>
+                    <event-list editable></event-list>
 
                 </div>
 
             </div>
         </div>
 
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <calendar-component></calendar-component>
+                </div>
+            </div>
+        </div>
     </div>
 
     <add-event-modal :user_id="{{ Auth::id() }}"></add-event-modal>

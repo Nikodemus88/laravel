@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    public function show($id) {
+
+        $project = Project::find($id)
+        ->with('events')
+        ->get();
+
+        return $project;
+    }
+
     public function store(Request $request)	{
         
         $project = new Project;
@@ -21,35 +30,45 @@ class ProjectController extends Controller
         $project->description = $input['description'];
         $project->url = $input['url'];
         $project->img_url = $input['img_url'];
+        $project->color = $input['color'];
 
         $project->save();
 
     }
 
-    public function update(Request $request, $eventid){
-		
-        //
+    public function update(Request $request, $id){
+
+        $input = $request->input();
+
+        $project = Project::find($id);
+
+        $project->user_id = (int)$input['user_id'];
+        $project->title = $input['title'];
+        $project->description = $input['description'];
+        $project->url = $input['url'];
+        $project->img_url = $input['img_url'];
+        $project->color = $input['color'];
+
+        $project->save();
     }
 
-    public function destroy($projectid){
+    public function destroy($id){
 
-        $project = Project::find($projectid);
+        $project = Project::find($id);
         
         $project->delete();
     }
 
     public function getProjectList(Request $request){
-        
-        $userid = Auth::id();
 
         $projects = Project::select(
             'id', 
             'title', 
             'description', 
             'url', 
-            'img_url', 
-            'company_id', 
-            'user_id')
+            'img_url',
+            'user_id',
+            'color')
             ->with('events')
             ->get();
         

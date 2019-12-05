@@ -5,6 +5,7 @@
     size="lg"
     title="Add Project"
     ref="addProjectModal"
+    @shown="getData"
   >
     <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="show">
       <b-form-group id="title-group">
@@ -20,15 +21,28 @@
         ></b-form-textarea>
       </b-form-group>
 
-      <b-form-group id="url-group">
-        <b-form-input id="url" type="url" v-model="form.url" placeholder="Url"></b-form-input>
-      </b-form-group>
+      <div class="row">
+        <div class="col-md-6">
+          <b-form-group
+            id="color-group"
+            label="Calendar label color: "
+            label-for="input-horizontal"
+            label-cols-lg="6"
+          >
+            <b-form-input id="color" type="color" v-model="form.color"></b-form-input>
+          </b-form-group>
+          <b-form-group id="url-group">
+            <b-form-input id="url" type="url" v-model="form.url" placeholder="Url"></b-form-input>
+          </b-form-group>
+          <button class="btn btn-primary" @click.prevent="getImage">Fetch Image</button>
+        </div>
 
-      <div class="row mb-4">
-        <div class="col">
+        <div class="col-md-6 mb-4">
           <div
             class="img-container"
-            v-bind:style="{ backgroundImage: 'url(' + form.img_url + ')' }"
+            v-bind:style="{
+                            backgroundImage: 'url(' + form.img_url + ')'
+                        }"
           >
             <p class="loader">
               <i v-if="imgLoading" class="material-icons text-primary">hourglass_empty</i>
@@ -39,12 +53,10 @@
             </p>
           </div>
         </div>
-        <div class="col">
-          <button class="btn btn-primary" @click.prevent="getImage">Get Image</button>
-        </div>
       </div>
 
-      <div class="row" v-if="debug">
+      <!-- <div class="row" v-if="debug"> -->
+      <div class="row">
         <div class="col">
           <pre>
             {{ form }}
@@ -54,7 +66,7 @@
       <div class="row">
         <div class="col text-right">
           <b-button type="reset" variant="danger">Reset fields</b-button>
-          <b-button type="submit" variant="primary">Add Project</b-button>
+          <b-button type="submit" variant="primary">Save</b-button>
         </div>
       </div>
     </b-form>
@@ -81,7 +93,8 @@ export default {
         title: "",
         description: "",
         img_url: "",
-        url: ""
+        url: "",
+        color: "#3a87ad"
       },
       imgLoading: false,
       show: true,
@@ -91,9 +104,20 @@ export default {
   },
   props: {
     user_id: Number,
-    project_id: Number
+    project_id: Number,
+    test: String
   },
   methods: {
+    getData() {
+      console.dir(this.project);
+      if (this.project) {
+        this.form.title = this.project.title;
+        this.form.description = this.project.description;
+        this.form.img_url = this.project.img_url;
+        this.form.url = this.project.url;
+        this.form.color = this.project.color;
+      }
+    },
     getImage() {
       this.imgLoading = true;
       var vm = this;
@@ -115,6 +139,12 @@ export default {
         this.show = true;
       });
     }
+  },
+  created() {
+    eventBus.$on("editProject", project => {
+      this.project = project;
+      this.action = "/projects/update/" + project.id;
+    });
   }
 };
 </script>

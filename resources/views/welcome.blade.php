@@ -102,17 +102,8 @@
         <div class="content container mt-4">
 
             <div class="row">
-                <div class="col-md-8">
-                    <project-list editable=false></project-list>
-                </div>
                 <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="title m-b-md">
-                                <calendar-component :selectable="false"></calendar-component>
-                            </div>
-                        </div>
-                    </div>
+                    <project-list></project-list>
                 </div>
             </div>
         </div>

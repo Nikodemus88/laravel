@@ -28,11 +28,18 @@ export default {
                     this.loaded = true;
                     this.success = true;
                     eventBus.$emit(this.name + 'Added')
+                    eventBus.$emit('notify', {
+                        'class': 'success',
+                        'content': this.name + ' saved!'
+                    });
                 }).catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};
-                        eventBus.$emit('gotErrors', this.errors);
+                        eventBus.$emit('notify', {
+                            'class': 'danger',
+                            'content': this.errors
+                        });
                     }
                 });
             }

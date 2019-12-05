@@ -12,7 +12,6 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->delete();
         $json = File::get("database/data/users.json");
         $data = json_decode($json);
         foreach($data as $obj) {

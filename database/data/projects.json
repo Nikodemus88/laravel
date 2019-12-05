@@ -1,0 +1,26 @@
+[{
+    "id": "1",
+    "title": "Activiteitenhuis 'De Pier'",
+    "description": "In dit rustieke huisje op de pier is altijd wel iets te doen, vertier voor jong en oud!\nNaast de activiteiten wordt er ook koffie, thee en fris geschonken en is er altijd wel een voorraad pinda´s, met grote dank aan Hendrik-Jan's Notenkraam.",
+    "url": null,
+    "img_url": "https:\/\/picsum.photos\/id\/594\/600\/400.webp",
+    "user_id": "1",
+    "color": "#ff0000"
+}, {
+    "id": "3",
+    "title": "Samen Ondernemen",
+    "description": "Als klein bedrijf of ZZP'er is het altijd een uitdaging om toekomstbestendig te ondernemen. \r\nMet ' Samen Ondernemen' sta je hier niet alleen in, maar kun je informatie en ervaringen delen met andere ondernemers.",
+    "url": "https:\/\/www.mkbservicedesk.nl\/7681\/ondernemen-2020.htm",
+    "img_url": "https:\/\/picsum.photos\/id\/0\/600\/400.webp",
+    "user_id": "1",
+    "color": "#00ff00"
+}, {
+    "id": "4",
+    "title": "Leon op avontuur",
+    "description": "Ik reis graag en ik reis veel. Wil je daar meer over weten? Dan vertel ik dat graag!",
+    "url": null,
+    "img_url": "https:\/\/picsum.photos\/id\/103\/600\/400.webp",
+    "company_id": null,
+    "user_id": "1",
+    "color": "#0000ff"
+}]

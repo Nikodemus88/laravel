@@ -12,8 +12,8 @@
           class="col bg-img cover"
           v-bind:style="{ backgroundImage: 'linear-gradient(to right, rgba(28, 77, 117, 0.8), rgba(28, 77, 117, 0)), url(' + project.img_url + ')' }"
         >
-          <div class="row pt-3" v-if="isEditable">
-            <div class="col"></div>
+          <div class="row pt-3" v-if="editable">
+            <div class="col">&nbsp;</div>
             <div class="col-auto p-0" v-if="project.url">
               <a :href="project.url" target="_BLANK">
                 <i :id="'url-' + i" class="material-icons text-primary">language</i>
@@ -35,6 +35,11 @@
           <div class="px-4 pt-2 pb-4 text-white">
             <h2>
               <b>{{ project.title }}</b>
+              <i
+                v-if="project.color"
+                class="material-icons projectcolor"
+                :style="{ color: project.color }"
+              >bookmark</i>
             </h2>
             <p>{{ project.description }}</p>
 
@@ -67,7 +72,7 @@
                         <span v-else>All day event</span>
                       </small>
                       <br />
-                      <b-badge v-if="event.price > 0" pill variant="light">€ {{ event.price }}</b-badge>
+                      <b-badge v-if="event.price > 0" pill variant="primary">€ {{ event.price }}</b-badge>
                       <b-badge v-else pill variant="success">free</b-badge>
                     </p>
                   </div>
@@ -83,6 +88,11 @@
         <div class="col">
           <h5>
             <b>{{ project.title }}</b>
+            <i
+              v-if="project.color"
+              class="material-icons projectcolor"
+              :style="{ color: project.color }"
+            >bookmark</i>
           </h5>
           <p>{{ project.description }}</p>
           <div v-if="project.events.length > 0">
@@ -105,7 +115,7 @@
                       variant="secondary"
                     >{{ event.description }}</b-tooltip>
 
-                    <b-badge v-if="event.price > 0" pill variant="light">€ {{ event.price }}</b-badge>
+                    <b-badge v-if="event.price > 0" pill variant="primary">€ {{ event.price }}</b-badge>
                     <b-badge v-else pill variant="success">free</b-badge>
 
                     <br />
@@ -121,7 +131,7 @@
           </div>
           <div v-else>
             <small>
-              <i>No events planned..</i>
+              <i>No events planned</i>
             </small>
           </div>
         </div>
@@ -130,7 +140,7 @@
           v-bind:style="{ backgroundImage: 'url(' + project.img_url + ')' }"
           v-if="project.img_url"
         >
-          <div class="row pt-3" v-if="isEditable">
+          <div class="row pt-3" v-if="editable">
             <div class="col"></div>
             <div class="col-auto p-0" v-if="project.url">
               <a :href="project.url" target="_BLANK">
@@ -138,12 +148,12 @@
               </a>
               <b-tooltip :target="'url-' + i" triggers="hover" placement="left">{{ project.url }}</b-tooltip>
             </div>
-            <div class="col-md-auto px-1">
+            <div class="col-auto px-1">
               <button class="btn btn-xs btn-primary" @click="editProject(project)">
                 <i :id="'edit-' + i" class="material-icons">edit</i>
               </button>
             </div>
-            <div class="col-md-auto pl-0">
+            <div class="col-auto pl-0">
               <button class="btn btn-xs btn-danger" @click="deleteProject(project)">
                 <i :id="'del-' + i" class="material-icons">delete</i>
               </button>
@@ -179,7 +189,10 @@ Vue.prototype.moment = moment;
 
 export default {
   props: {
-    editable: Boolean
+    editable: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -193,9 +206,6 @@ export default {
   computed: {
     hasProjects() {
       return this.projects.length > 0 ? true : false;
-    },
-    isEditable() {
-      return editable == false ? false : true;
     }
   },
   methods: {
@@ -203,12 +213,12 @@ export default {
       var vm = this;
       axios.get(this.projectListUrl).then(function(response) {
         vm.projects = response.data;
-        console.dir(response.data);
         vm.zeroState = "No projects added";
       });
     },
     editProject(project) {
-      console.log("Edit this! ->" + project.title);
+      eventBus.$emit("editProject", project);
+      this.$bvModal.show("add-project-modal");
     },
     deleteProject(delProject) {
       this.$bvModal
@@ -246,12 +256,22 @@ export default {
     eventBus.$on("projectAdded", () => {
       this.getProjects();
     });
+    eventBus.$on("projectDeleted", () => {
+      this.getProjects();
+    });
+    eventBus.$on("eventAdded", () => {
+      this.getProjects();
+    });
+    eventBus.$on("eventDeleted", () => {
+      this.getProjects();
+    });
   }
 };
 </script>
 
 <style scoped>
 .bg-img {
+  min-height: 150px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

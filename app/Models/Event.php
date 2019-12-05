@@ -25,12 +25,12 @@ class Event extends Model
 
 	public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'id');
     }
 
 	public function project()
     {
-        return $this->belongsTo('App\Models\Project', 'project_id');
+        return $this->belongsTo('App\Models\Project', 'id');
     }
 
     public function getRRuleStringAttribute()
@@ -51,5 +51,9 @@ class Event extends Model
         }
 
         return $date;
+    }
+
+    public function getProjectNameAttribute () {
+        return $this->project;
     }
 }
