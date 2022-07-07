@@ -33,7 +33,7 @@
         "bootstrap-vue": "^2.1.0",
         "flatpickr": "^4.6.3",
         "material-design-icons": "^3.0.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "rrule": "^2.6.3",
         "vue-flatpickr-component": "^8.1.5",
         "vue-full-calendar": "^2.7.0",
